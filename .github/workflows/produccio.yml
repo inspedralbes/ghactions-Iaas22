@@ -1,6 +1,10 @@
 name: Preparant per producció
 run-name: ${{ github.actor }} està pujant l'aplicació a PROD  🚀
-on: [push]
+on: 
+  push:
+    branches:
+        - main
+
 jobs:
   Pujar-a-produccio-amb-SCP:
     runs-on: ubuntu-latest
@@ -15,6 +19,6 @@ jobs:
           cd ${{ github.workspace }}
           echo "Action desplegant a produccio" > ./web/last_deploy.txt
           date >> ./web/last_deploy.txt
-          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/a23ishamisul/web/actions.daw.inspedralbes.cat/public_html/
+          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/a23ishamisul/web/a23ishamisul.daw.inspedralbes.cat/public_html/actions/
           
       - run: echo "🍏 This job's status is ${{ job.status }}."
